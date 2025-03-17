@@ -48,7 +48,14 @@ def average_occurrence_in_time_period_national(path_to_NationalNames_dataset, na
     print(f"Average yearly occurrence of '{name}' from {start_year} to {end_year} is {average_occurance:.2f}")
     print(f"Maximum yearly occurrence of '{name}' in this period is {max_yearly_occurrence} (occurred in {max_year})")
 
-def plot_name_occurance_change_over_time(path_to_NationalNames_dataset, path_to_StateNames_dataset, name, dataset, state, path_to_results, plotname_to_save):
+def plot_name_occurance_change_over_time(path_to_NationalNames_dataset = r"C:\Users\matej\.cache\kagglehub\datasets\kaggle\us-baby-names\versions\2\NationalNames.csv", 
+                                         path_to_StateNames_dataset = r"C:\Users\matej\.cache\kagglehub\datasets\kaggle\us-baby-names\versions\2\StateNames.csv", 
+                                         name = 'Ida', 
+                                         dataset = 'State', 
+                                         state = 'CA', 
+                                         path_to_results = r"C:\Users\matej\VSCode_projects\STRV_test_project\STRV_test_project\Results", 
+                                         plotname_to_save = 'Ida_change_over_time_state_CA'
+                                         ):
     """
     This function plots a histogram of occurances of a selected name from a selected dataset over the years of monitoring.
 
@@ -106,7 +113,8 @@ def random_most_unisex_name(path_to_NationalNames_dataset = r"C:\Users\matej\.ca
                             dataset = 'National', 
                             minimum_unisex_score = 0.9, 
                             minimum_name_count = 3000, 
-                            printing_the_names = True):
+                            printing_the_names = True
+                            ):
     """
     This function calculates the unisexness of names, the unisex_score, U = min(F, M) / max(F, M), 
     where F is the count of females born with the name and M is the count of males born with the name.
@@ -193,9 +201,9 @@ def find_common_national_rare_state(path_to_NationalNames_dataset = r"C:\Users\m
         common_national_rare_state = common_national_rare_state.loc[common_national_rare_state.groupby("Name")["Relative_Commonness_State"].idxmin()]
 
     if sort_by == 'National': # if we want to sort the output by the "Relative_Commonness_National"
-        common_national_rare_state_sorted = common_national_rare_state.sort_values(by='Relative_Commonness_National', ascending=False)
+        common_national_rare_state_sorted = common_national_rare_state.sort_values(by='Relative_Commonness_National', ascending=False).reset_index(drop=True) # ascending false because for sorting by national level I am interested in the most common nationally
     elif sort_by == 'State': # if we want to sort the output by the "Relative_Commonness_State"
-        common_national_rare_state_sorted = common_national_rare_state.sort_values(by='Relative_Commonness_State', ascending=False)
+        common_national_rare_state_sorted = common_national_rare_state.sort_values(by='Relative_Commonness_State', ascending=True).reset_index(drop=True) # ascending True because for sorting by the state level I am interested in the least common names
     else:
         raise ValueError("Invalid value. The 'sort_by' expects input to be 'National' or 'State'.")
     
@@ -294,7 +302,8 @@ def top_10_states_most_newborns(path_to_StateNames_dataset = r"C:\Users\matej\.c
     
     print(top_states)
 
-def plot_top_names_by_state(path_to_StateNames_dataset = r"C:\Users\matej\.cache\kagglehub\datasets\kaggle\us-baby-names\versions\2\StateNames.csv"):
+def plot_top_names_by_state(path_to_StateNames_dataset = r"C:\Users\matej\.cache\kagglehub\datasets\kaggle\us-baby-names\versions\2\StateNames.csv"
+                            ):
     """
     This function craetes a choropleth map of the USA where each state is colored by the most popular baby name in that state.
 

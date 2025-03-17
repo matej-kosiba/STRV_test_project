@@ -1,10 +1,9 @@
 import sys
 import os
-
 import kagglehub
 path = kagglehub.dataset_download("kaggle/us-baby-names")
+print ()
 print("Path to dataset files:", path)
-
 functions_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'STRV_TEST_PROJECT'))
 sys.path.append(functions_path)
 import functions
@@ -15,8 +14,12 @@ path_to_StateNames_dataset = r"C:\Users\matej\.cache\kagglehub\datasets\kaggle\u
 print ()
 print (' -----------------------------------------------------')
 print ('Exploring the fundamentals of the datasets')
-functions.check_year_span(path_to_NationalNames_dataset, 'NationalNames')
-functions.check_year_span(path_to_StateNames_dataset, 'StateNames')
+functions.check_year_span(file_path = path_to_NationalNames_dataset, 
+                          dataset_name = 'NationalNames'
+                          )
+functions.check_year_span(file_path = path_to_StateNames_dataset, 
+                          dataset_name = 'StateNames'
+                          )
 print ()
 print (' -----------------------------------------------------')
 print ('Explore the dataset, task 1. How did the name Ida change period-over-period nationally?')
@@ -53,7 +56,7 @@ functions.random_most_unisex_name(path_to_NationalNames_dataset = path_to_Nation
                                   dataset = 'National', 
                                   minimum_unisex_score = 0.8,  
                                   minimum_name_count = 10000, 
-                                  printing_the_names = False
+                                  printing_the_names = True
                                   )
 print ()
 print (' -----------------------------------------------------')
@@ -70,7 +73,7 @@ print (' -----------------------------------------------------')
 print ('Presentation task 1. Find the TOP 10 trending names')
 
 functions.find_trending_names_by_slope(path_to_NationalNames_dataset = path_to_NationalNames_dataset,
-                                       years_to_analyze=5, 
+                                       years_to_analyze=3, 
                                        plot_top_n = 10,
                                        path_to_results = path_to_results,
                                        plotname_to_save = 'trending_analysis'
